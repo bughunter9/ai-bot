@@ -1,8 +1,17 @@
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+'use client'
+
+import { SignedIn, SignedOut, SignInButton, useAuth } from "@clerk/nextjs";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LandingPage() {
+  const { userId } = useAuth();
+  useEffect(() => {
+    if (userId) redirect("/dashboard");
+  }, [userId]);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-gray-50/50 flex items-center justify-center">
       {/* Background pattern */}

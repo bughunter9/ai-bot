@@ -115,6 +115,7 @@ export default function ChatInterface({
         newMessage: trimmedInput,
         chatId,
       };
+      console.log(requestBody, "res");
 
       // Initialize SSE connection
       const response = await fetch("/api/chat/stream", {
@@ -122,6 +123,7 @@ export default function ChatInterface({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
       });
+      console.log(response);
 
       if (!response.ok) throw new Error(await response.text());
       if (!response.body) throw new Error("No response body available");
@@ -134,6 +136,7 @@ export default function ChatInterface({
       await processStream(reader, async (chunk) => {
         // Parse SSE messages from the chunk
         const messages = parser.parse(chunk);
+        console.log(messages, "msg");
 
         // Handle each message based on its type
         for (const message of messages) {

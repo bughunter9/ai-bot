@@ -12,7 +12,7 @@ import {
   SSE_LINE_DELIMITER,
 } from "@/lib/types";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 function sendSSEMessage(
   writer: WritableStreamDefaultWriter<Uint8Array>,
@@ -28,10 +28,15 @@ function sendSSEMessage(
 
 export async function POST(req: Request) {
   try {
+    console.log("12")
     const { userId } = await auth();
+    console.log("123")
     if (!userId) {
       return new Response("Unauthorized", { status: 401 });
     }
+    console.log("1277")
+
+    console.log(userId, "check 1");
 
     const { messages, newMessage, chatId } =
       (await req.json()) as ChatRequestBody;
@@ -40,6 +45,8 @@ export async function POST(req: Request) {
     // Create stream with larger queue strategy for better performance
     const stream = new TransformStream({}, { highWaterMark: 1024 });
     const writer = stream.writable.getWriter();
+
+    console.log("check 2");
 
     const response = new Response(stream.readable, {
       headers: {
@@ -71,6 +78,8 @@ export async function POST(req: Request) {
           ),
           new HumanMessage(newMessage),
         ];
+
+        console.log(langChainMessages, "lang");
 
         try {
           // Create the event stream
