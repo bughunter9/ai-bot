@@ -16,8 +16,6 @@ const ChatParent = ({ chatId }: ChatParentProps) => {
   const { userId } = useAuth();
   const [initialMessages, setInitialMessages] = useState<Doc<"messages">[]>([]);
 
-  console.log("user", userId, "chat", chatId);
-
   useEffect(() => {
     const fetchUserData = async () => {
       if (!userId) {

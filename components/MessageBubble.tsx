@@ -3,6 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@clerk/nextjs";
 import { BotIcon } from "lucide-react";
+import Markdown from 'react-markdown';
 
 interface MessageBubbleProps {
   content: string;
@@ -36,7 +37,8 @@ export function MessageBubble({ content, isUser }: MessageBubbleProps) {
         }`}
       >
         <div className="whitespace-pre-wrap text-[15px] leading-relaxed">
-          <div dangerouslySetInnerHTML={{ __html: formatMessage(content) }} />
+          {/* <div dangerouslySetInnerHTML={{ __html: formatMessage(content) }} /> */}
+          <Markdown>{formatMessage(content)}</Markdown>
         </div>
         <div
           className={`absolute bottom-0 ${

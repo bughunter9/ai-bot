@@ -24,7 +24,6 @@ export const createChat = mutation({
 export const listChats = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    // console.log(identity);
     if (!identity) {
       throw new Error("Not authenticated");
     }

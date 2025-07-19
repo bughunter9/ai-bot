@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,8 @@ function ChatRow({
   onDelete: (id: Id<"chats">) => void;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const activeChatId = pathname.split("/")[3];
   const { closeMobileNav } = useNavigation();
   const lastMessage = useQuery(api.messages.getLastMessage, {
     chatId: chat._id,
@@ -30,7 +32,9 @@ function ChatRow({
 
   return (
     <div
-      className="group rounded-xl border border-gray-200/30 bg-white/50 backdrop-blur-sm hover:bg-white/80 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
+      className={`group rounded-xl border border-gray-200/30 backdrop-blur-sm hover:bg-white/80 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md ${
+        activeChatId === chat._id ? "bg-gray-200" : "bg-white/50"
+      }`}
       onClick={handleClick}
     >
       <div className="p-4">

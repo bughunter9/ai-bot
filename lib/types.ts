@@ -67,4 +67,5 @@ export interface ChatRequestBody {
   messages: Message[];
   newMessage: string;
   chatId: Id<"chats">;
+  userId: string;
 }

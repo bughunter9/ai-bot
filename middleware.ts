@@ -13,9 +13,7 @@
 
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default clerkMiddleware((auth, req) => {
-  // console.log("🧩 Clerk middleware ran", auth());
-});
+export default clerkMiddleware();
 
 export const config = {
   matcher: [
